@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_admin/ui/screens/HomeScreen.dart';
+import 'package:restaurant_admin/ui/screens/home_screen.dart';
 import 'package:restaurant_admin/ui/screens/login_screen.dart';
 
 void main() {
@@ -34,3 +34,8 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+//git add -A
+//git commit -m "Message"
+//git push

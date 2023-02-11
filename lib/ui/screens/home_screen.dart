@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     tabController = TabController(
-      length: 5,
+      length: 6,
       vsync: this,
       initialIndex: 0, //change to the index of currently editing section
     );
@@ -57,23 +57,35 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                   CustomSectionButton(
                     iconData: Icons.dining_sharp,
-                    isSelected: false,
-                    onPressed: () {},
+                    isSelected: tabController.index == 2,
+                    onPressed: () {
+                      tabController.animateTo(2);
+                      setState(() {});
+                    },
                   ),
                   CustomSectionButton(
-                    iconData: Icons.list,
-                    isSelected: false,
-                    onPressed: () {},
+                    iconData: Icons.room_service,
+                    isSelected: tabController.index == 3,
+                    onPressed: () {
+                      tabController.animateTo(3);
+                      setState(() {});
+                    },
                   ),
                   CustomSectionButton(
-                    iconData: Icons.list,
-                    isSelected: false,
-                    onPressed: () {},
+                    iconData: Icons.deck,
+                    isSelected: tabController.index == 4,
+                    onPressed: () {
+                      tabController.animateTo(4);
+                      setState(() {});
+                    },
                   ),
                   CustomSectionButton(
-                    iconData: Icons.list,
-                    isSelected: false,
-                    onPressed: () {},
+                    iconData: Icons.notifications,
+                    isSelected: tabController.index == 5,
+                    onPressed: () {
+                      tabController.animateTo(5);
+                      setState(() {});
+                    },
                   ),
                 ],
               ),
@@ -84,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen>
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
                   TaskListSection(),
-                  OrderHistoryScreen(),
+                  OrderHistorySection(),
                   Container(
                     color: Colors.green,
                   ),
@@ -93,6 +105,9 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                   Container(
                     color: Colors.yellow,
+                  ),
+                  Container(
+                    color: Colors.blue,
                   ),
                 ],
               ),

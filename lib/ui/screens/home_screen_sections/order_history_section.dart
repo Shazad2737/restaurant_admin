@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class OrderHistoryScreen extends StatelessWidget {
-  const OrderHistoryScreen({Key? key}) : super(key: key);
+class OrderHistorySection extends StatelessWidget {
+  const OrderHistorySection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
