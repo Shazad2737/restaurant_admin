@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_admin/ui/widgets/task_container.dart';
 
+import '../../widgets/food_item.dart';
 import '../../widgets/label_with_text.dart';
 
 class TaskListSection extends StatelessWidget {
@@ -9,83 +11,9 @@ class TaskListSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Material(
-          color: Color(0xFFE3EEED),
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            bottomLeft: Radius.circular(20),
-          ),
-          child: SizedBox(
-            width: 300,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 50,
-                ),
-                Text(
-                  "Task List",
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        color: Color(0xff006758),
-                      ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Material(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(15),
-                      bottomRight: Radius.zero,
-                      topLeft: Radius.zero,
-                      topRight: Radius.circular(15),
-                    ),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 10,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Task #0435",
-                              style: TextStyle(
-                                  color: Color(0xff006758),
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 18),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.schedule,
-                                  size: 20,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  "As soon as",
-                                  style: TextStyle(
-                                      color: Colors.black.withOpacity(.5),
-                                      fontWeight: FontWeight.w900),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+        TaskContainer(
+          heading: 'Task List',
+          subheading: 'Task#65',
         ),
         Expanded(
           child: Material(
@@ -170,8 +98,11 @@ class TaskListSection extends StatelessWidget {
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 20,
+                ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 20),
+                  padding: const EdgeInsets.only(left: 30),
                   child: FoodItem(),
                 ),
               ],
@@ -179,60 +110,6 @@ class TaskListSection extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class FoodItem extends StatelessWidget {
-  const FoodItem({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    'https://media.cnn.com/api/v1/images/stellar/prod/220428140436-04-classic-american-hamburgers.jpg?c=original',
-                    height: 50,
-                    width: 50,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Text("Hamburger"),
-                ),
-                Expanded(
-                  child: Text("x3"),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Text("with cheese"),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Text("\$36.99"),
-                ),
-              ],
-            ),
-          ),
-          Divider(
-            height: 3,
-            thickness: 3,
-            color: Colors.black.withOpacity(0.25),
-          ),
-        ],
-      ),
     );
   }
 }
