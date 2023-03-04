@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_admin/ui/screens/home_screen_sections/order_history_section.dart';
 
 import '../widgets/custom_section_button.dart';
+import 'home_screen_sections/menu_management_screen.dart';
 import 'home_screen_sections/task_list_section.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen>
     tabController = TabController(
       length: 6,
       vsync: this,
-      initialIndex: 0, //change to the index of currently editing section
+      initialIndex: 2, //change to the index of currently editing section
     );
     super.initState();
   }
@@ -97,9 +98,7 @@ class _HomeScreenState extends State<HomeScreen>
                 children: [
                   TaskListSection(),
                   OrderHistorySection(),
-                  Container(
-                    color: Colors.green,
-                  ),
+                  MenuManagementSection(),
                   Container(
                     color: Colors.red,
                   ),
