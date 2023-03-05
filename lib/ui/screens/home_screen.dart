@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_admin/ui/screens/home_screen_sections/notifications_section.dart';
 import 'package:restaurant_admin/ui/screens/home_screen_sections/order_history_section.dart';
 
 import '../widgets/custom_section_button.dart';
@@ -21,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen>
     tabController = TabController(
       length: 6,
       vsync: this,
-      initialIndex: 2, //change to the index of currently editing section
+      initialIndex: 3, //change to the index of currently editing section
     );
     super.initState();
   }
@@ -99,9 +100,7 @@ class _HomeScreenState extends State<HomeScreen>
                   TaskListSection(),
                   OrderHistorySection(),
                   MenuManagementSection(),
-                  Container(
-                    color: Colors.red,
-                  ),
+                  NotificationsSection(),
                   Container(
                     color: Colors.yellow,
                   ),
