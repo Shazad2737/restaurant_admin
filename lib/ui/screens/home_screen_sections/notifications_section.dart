@@ -15,7 +15,7 @@ class NotificationsSection extends StatelessWidget {
       child: Row(
         children: [
           TaskContainer(
-            heading: "Order History",
+            heading: "Notifications",
             subheading: "10",
           ),
           Expanded(
