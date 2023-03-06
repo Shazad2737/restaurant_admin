@@ -58,9 +58,11 @@ class TaskItem extends StatelessWidget {
   const TaskItem({
     Key? key,
     required this.taskName,
+    this.isSelected = false,
   }) : super(key: key);
 
   final String taskName;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -73,40 +75,57 @@ class TaskItem extends StatelessWidget {
       ),
       child: SizedBox(
         width: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 15,
-            vertical: 10,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        child: IntrinsicHeight(
+          child: Row(
             children: [
-              Text(
-                taskName,
-                style: TextStyle(
-                    color: Color(0xff006758),
-                    fontWeight: FontWeight.w900,
-                    fontSize: 18),
+              isSelected
+                  ? Container(
+                      width: 10,
+                      decoration: BoxDecoration(
+                        color: const Color(0xff006758),
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(15),
+                        ),
+                      ),
+                    )
+                  : const SizedBox(),
+              const SizedBox(
+                width: 15,
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.schedule,
-                    size: 20,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    "As soon as",
-                    style: TextStyle(
-                        color: Colors.black.withOpacity(.5),
-                        fontWeight: FontWeight.w900),
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      taskName,
+                      style: TextStyle(
+                          color: Color(0xff006758),
+                          fontWeight: FontWeight.w900,
+                          fontSize: 18),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.schedule,
+                          size: 20,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          "As soon as",
+                          style: TextStyle(
+                              color: Colors.black.withOpacity(.5),
+                              fontWeight: FontWeight.w900),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
