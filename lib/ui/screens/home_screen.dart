@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_admin/ui/screens/home_screen_sections/notifications_section.dart';
 import 'package:restaurant_admin/ui/screens/home_screen_sections/order_history_section.dart';
+import 'package:restaurant_admin/ui/screens/home_screen_sections/tables_section.dart';
 
 import '../widgets/custom_section_button.dart';
 import 'home_screen_sections/menu_management_screen.dart';
@@ -101,11 +102,9 @@ class _HomeScreenState extends State<HomeScreen>
                   OrderHistorySection(),
                   MenuManagementSection(),
                   Container(
-                    color: Colors.yellow,
-                  ),
-                  Container(
                     color: Colors.blue,
                   ),
+                  TablesSection(),
                   NotificationsSection(),
                 ],
               ),
