@@ -100,13 +100,13 @@ class _HomeScreenState extends State<HomeScreen>
                   TaskListSection(),
                   OrderHistorySection(),
                   MenuManagementSection(),
-                  NotificationsSection(),
                   Container(
                     color: Colors.yellow,
                   ),
                   Container(
                     color: Colors.blue,
                   ),
+                  NotificationsSection(),
                 ],
               ),
             ),
