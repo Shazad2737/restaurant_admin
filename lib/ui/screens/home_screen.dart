@@ -5,6 +5,7 @@ import 'package:restaurant_admin/ui/screens/home_screen_sections/tables_section.
 
 import '../widgets/custom_section_button.dart';
 import 'home_screen_sections/menu_management_screen.dart';
+import 'home_screen_sections/reservation_section.dart';
 import 'home_screen_sections/task_list_section.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -101,9 +102,7 @@ class _HomeScreenState extends State<HomeScreen>
                   TaskListSection(),
                   OrderHistorySection(),
                   MenuManagementSection(),
-                  Container(
-                    color: Colors.blue,
-                  ),
+                  ReservationSection(),
                   TablesSection(),
                   NotificationsSection(),
                 ],
