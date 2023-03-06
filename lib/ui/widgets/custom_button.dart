@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   final String label;
   final Function() onPressed;
-  final Color color;
+  final Color color, labelColor;
   const CustomButton({
     Key? key,
     required this.label,
     required this.onPressed,
     this.color = Colors.green,
+    this.labelColor = Colors.white,
   }) : super(key: key);
 
   @override
@@ -32,7 +33,7 @@ class CustomButton extends StatelessWidget {
                   label,
                   style: Theme.of(context).textTheme.button?.copyWith(
                         fontSize: 20,
-                        color: Colors.white,
+                        color: labelColor,
                       ),
                 ),
               ],

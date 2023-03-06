@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_admin/ui/screens/home_screen_sections/notifications_section.dart';
 import 'package:restaurant_admin/ui/screens/home_screen_sections/order_history_section.dart';
 import 'package:restaurant_admin/ui/screens/home_screen_sections/tables_section.dart';
+import 'package:restaurant_admin/ui/widgets/custom_button.dart';
 
 import '../widgets/custom_section_button.dart';
 import 'home_screen_sections/menu_management_screen.dart';
@@ -89,6 +90,85 @@ class _HomeScreenState extends State<HomeScreen>
                     onPressed: () {
                       tabController.animateTo(5);
                       setState(() {});
+                    },
+                  ),
+                  CustomSectionButton(
+                    iconData: Icons.logout,
+                    isSelected: tabController.index == 5,
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => Dialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 15,
+                              vertical: 10,
+                            ),
+                            child: SizedBox(
+                              width: 350,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'Logout',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium!
+                                        .copyWith(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    'Are you sure you want to logout ?',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelLarge!
+                                        .copyWith(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: CustomButton(
+                                          label: 'Cancel',
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          color: Colors.grey[300]!,
+                                          labelColor: Colors.black,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 15,
+                                      ),
+                                      Expanded(
+                                        child: CustomButton(
+                                          label: 'Logout',
+                                          onPressed: () {},
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
                     },
                   ),
                 ],
