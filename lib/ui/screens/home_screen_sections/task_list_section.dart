@@ -105,6 +105,11 @@ class TaskListSection extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 30),
                   child: FoodItem(),
                 ),
+                Divider(
+                  height: 10,
+                  thickness: 3,
+                  color: Colors.black.withOpacity(.125),
+                )
               ],
             ),
           ),
