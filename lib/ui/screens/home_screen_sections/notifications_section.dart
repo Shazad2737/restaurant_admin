@@ -106,42 +106,53 @@ class NotificationsSection extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30),
-                    child: Text(
-                      "Task #0463",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff006758),
-                          fontSize: 17),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30),
+                        child: Text(
+                          "Task #0463",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff006758),
+                              fontSize: 17),
+                        ),
+                      ),
+                      Icon(
+                        Icons.check_circle,
+                        color: Color(0xff006758),
+                      ),
+                    ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.only(top: 10, bottom: 10),
                     child: Divider(
                       height: 3,
-                      color: Colors.black,
+                      thickness: 3,
+                      color: Colors.black.withOpacity(0.07),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30, top: 10),
-                    child: Text(
-                      "Task #0456",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff006758),
-                        fontSize: 17,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30, top: 10),
+                        child: Text(
+                          "Task #0456",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff006758),
+                            fontSize: 17,
+                          ),
+                        ),
                       ),
-                    ),
+                      Icon(
+                        Icons.hourglass_bottom,
+                        color: Color(0xff006758),
+                      )
+                    ],
                   ),
-                  Icon(
-                    Icons.check_circle,
-                    color: Color(0xff006758),
-                  ),
-                  Icon(
-                    Icons.hourglass_bottom,
-                    color: Color(0xff006758),
-                  )
                 ],
               ),
             ),
