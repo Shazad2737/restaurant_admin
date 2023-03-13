@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_admin/ui/widgets/custom_button.dart';
 import 'package:restaurant_admin/ui/widgets/task_container.dart';
 
 import '../../widgets/food_item.dart';
@@ -109,6 +110,25 @@ class TaskListSection extends StatelessWidget {
                   height: 10,
                   thickness: 3,
                   color: Colors.black.withOpacity(.125),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                      width: 200,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: CustomButton(
+                          color: Color(0xff006758),
+                          label: 'Accept Order',
+                          onPressed: () {},
+                        ),
+                      ),
+                    ),
+                  ],
                 )
               ],
             ),

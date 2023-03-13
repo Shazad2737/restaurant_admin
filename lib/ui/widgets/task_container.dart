@@ -43,6 +43,7 @@ class TaskContainer extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return TaskItem(
                     taskName: "Task 23",
+                    isSelected: index == 1,
                   );
                 },
               ),

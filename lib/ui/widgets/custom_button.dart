@@ -15,10 +15,10 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(30),
+      borderRadius: BorderRadius.circular(15),
       child: Material(
         color: color,
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(15),
         child: InkWell(
           onTap: onPressed,
           child: Padding(
