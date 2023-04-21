@@ -1,62 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_admin/ui/widgets/custom_card.dart';
 
 class FoodItem extends StatelessWidget {
   const FoodItem({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      child: Column(
+    return CustomCard(
+      child: Row(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 5,
-              bottom: 5,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Image.network(
+              'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=481&q=80',
+              height: 60,
+              width: 60,
+              fit: BoxFit.cover,
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    'https://media.cnn.com/api/v1/images/stellar/prod/220428140436-04-classic-american-hamburgers.jpg?c=original',
-                    height: 50,
-                    width: 50,
-                    fit: BoxFit.cover,
-                  ),
+                Text(
+                  'Food Name',
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                      ),
                 ),
-                SizedBox(
-                  width: 10,
+                const SizedBox(
+                  height: 2,
                 ),
-                Expanded(
-                  flex: 3,
-                  child: Text(
-                    "Hamburger",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
+                Text(
+                  '₹1500',
+                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
-                Expanded(
-                  child: Text("x3"),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Text(
-                    "with cheese",
-                    style: TextStyle(fontWeight: FontWeight.w300),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Text("\$36.99"),
-                ),
-                Divider(
-                  height: 10,
-                  thickness: 10,
-                  color: Colors.black,
-                )
               ],
             ),
           ),

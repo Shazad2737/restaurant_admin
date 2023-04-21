@@ -2,34 +2,36 @@ import 'package:flutter/material.dart';
 
 class LabelWithText extends StatelessWidget {
   final String label, text;
+  final CrossAxisAlignment crossAxisAlignment;
   const LabelWithText({
-    Key? key,
+    super.key,
     required this.label,
     required this.text,
-  }) : super(key: key);
+    this.crossAxisAlignment = CrossAxisAlignment.start,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: crossAxisAlignment,
       children: [
         Text(
           label,
-          style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: Colors.black.withOpacity(0.5)),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 8),
-          child: Text(
-            text,
-            style: TextStyle(
-                fontSize: 20,
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                color: Colors.black38,
                 fontWeight: FontWeight.w600,
-                color: Color(0xff006758)),
-          ),
-        )
+              ),
+        ),
+        const SizedBox(
+          height: 2,
+        ),
+        Text(
+          text,
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.w700,
+              ),
+        ),
       ],
     );
   }

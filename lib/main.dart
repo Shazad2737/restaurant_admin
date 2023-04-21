@@ -1,42 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_admin/ui/screens/home_screen.dart';
 import 'package:restaurant_admin/ui/screens/login_screen.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+void main() async {
+  await Supabase.initialize(
+    url: 'https://ouxnzpjfykvvbhabdwrw.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91eG56cGpmeWt2dmJoYWJkd3J3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY3ODY5NzU5MSwiZXhwIjoxOTk0MjczNTkxfQ.FdDNwBJqThFpU_mrlOBCxGmH7gFhatijCzccuS54-Xs',
+  );
+
+  // Supabase.instance.client.auth.admin.createUser(AdminUserAttributes(
+  //   email: 'admin@restaurant.com',
+  //   password: 'password',
+  //   emailConfirm: true,
+  // ));
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData.light().copyWith(
+      title: 'Restaurent Admin',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.green,
         inputDecorationTheme: InputDecorationTheme(
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 10,
-          ),
-          filled: true,
-          fillColor: Color(
-            0xffCECECE,
-          ),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          fillColor: Colors.green[50],
           border: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(20),
+            borderSide: const BorderSide(color: Colors.green, width: 0.5),
           ),
         ),
       ),
-      home: HomeScreen(),
-      debugShowCheckedModeBanner: false,
+      home: const LoginScreen(),
     );
   }
 }
-
-
-//git add -A
-//git commit -m "Message"
-//git push

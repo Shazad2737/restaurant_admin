@@ -1,43 +1,86 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_admin/ui/widgets/custom_card.dart';
 
 class CustomButton extends StatelessWidget {
   final String label;
-  final Function() onPressed;
-  final Color color, labelColor;
+  final Function() onTap;
+  final IconData? icon;
+  final Color? buttonColor, iconColor, labelColor, hoverBorderColor;
+  final double elevation;
+  final bool isLoading;
   const CustomButton({
     Key? key,
     required this.label,
-    required this.onPressed,
-    this.color = Colors.green,
-    this.labelColor = Colors.white,
+    required this.onTap,
+    this.icon,
+    this.buttonColor,
+    this.iconColor,
+    this.labelColor,
+    this.elevation = 0,
+    this.isLoading = false,
+    this.hoverBorderColor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(15),
-      child: Material(
-        color: color,
-        borderRadius: BorderRadius.circular(15),
-        child: InkWell(
-          onTap: onPressed,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 15,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  label,
-                  style: Theme.of(context).textTheme.button?.copyWith(
-                        fontSize: 20,
+    return CustomCard(
+      color: buttonColor ?? Colors.green[50],
+      hoverBorderColor: hoverBorderColor ?? Colors.green,
+      child: InkWell(
+        onTap: isLoading ? null : onTap,
+        borderRadius: BorderRadius.circular(20),
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: 20,
+            right: icon != null ? 10 : 20,
+            top: 12.5,
+            bottom: 12.5,
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: icon != null
+                ? MainAxisAlignment.spaceBetween
+                : MainAxisAlignment.center,
+            children: isLoading
+                ? [
+                    Transform.scale(
+                      scale: 0.7,
+                      child: CircularProgressIndicator(
                         color: labelColor,
+                        backgroundColor: labelColor?.withOpacity(.2),
                       ),
-                ),
-              ],
-            ),
+                    ),
+                    // SizedBox(
+                    //   width: 50,
+                    //   child: ClipRRect(
+                    //     borderRadius: BorderRadius.circular(30),
+                    //     child: Center(
+                    //       child: CircularProgressIndicator(
+                    //         color: labelColor,
+                    //         backgroundColor: labelColor?.withOpacity(.2),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // )
+                  ]
+                : [
+                    Text(
+                      label,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            color: labelColor,
+                          ),
+                    ),
+                    SizedBox(
+                      width: icon != null ? 5 : 0,
+                    ),
+                    icon != null
+                        ? Icon(
+                            icon!,
+                            color: iconColor,
+                            size: 20,
+                          )
+                        : const SizedBox()
+                  ],
           ),
         ),
       ),
