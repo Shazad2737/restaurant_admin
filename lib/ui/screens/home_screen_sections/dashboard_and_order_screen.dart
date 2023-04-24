@@ -1,9 +1,15 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:restaurant_admin/blocs/manage_orders/manage_orders_bloc.dart';
 import 'package:restaurant_admin/ui/widgets/custom_action_button.dart';
 import 'package:restaurant_admin/ui/widgets/custom_card.dart';
+import 'package:restaurant_admin/ui/widgets/custom_progress_indicator.dart';
 import 'package:restaurant_admin/ui/widgets/custom_search.dart';
 import 'package:restaurant_admin/ui/widgets/show_items_dialog.dart';
+
+import '../../widgets/custom_alert_dialog.dart';
 
 class DashboardAndOrderScreen extends StatefulWidget {
   const DashboardAndOrderScreen({super.key});
@@ -14,234 +20,306 @@ class DashboardAndOrderScreen extends StatefulWidget {
 }
 
 class _DashboardAndOrderScreenState extends State<DashboardAndOrderScreen> {
+  final ManageOrdersBloc manageOrdersBloc = ManageOrdersBloc();
+
+  String status = 'pending';
+
+  void getOrders() {
+    manageOrdersBloc.add(GetAllManageOrdersEvent(status: status));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getOrders();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: SizedBox(
-        width: 1000,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            Wrap(
-              spacing: 10,
-              runSpacing: 10,
-              children: const [
-                DashboardCard(
-                  label: 'Today\'s Orders',
-                  title: '20',
-                  icon: Icons.sell_outlined,
+      child: BlocProvider<ManageOrdersBloc>.value(
+        value: manageOrdersBloc,
+        child: BlocConsumer<ManageOrdersBloc, ManageOrdersState>(
+          listener: (context, state) {
+            if (state is ManageOrdersFailureState) {
+              showDialog(
+                context: context,
+                builder: (context) => CustomAlertDialog(
+                  title: 'Failed',
+                  message: state.message,
+                  primaryButtonLabel: 'Ok',
+                  primaryOnPressed: () {
+                    getOrders();
+                  },
                 ),
-                DashboardCard(
-                  label: 'Total Food Items',
-                  title: '100',
-                  icon: Icons.food_bank_outlined,
-                ),
-                DashboardCard(
-                  label: 'Total Complaints',
-                  title: '30',
-                  icon: Icons.report_outlined,
-                ),
-                DashboardCard(
-                  label: 'Total Tables',
-                  title: '40',
-                  icon: Icons.table_bar_outlined,
-                ),
-              ],
-            ),
-
-            const Divider(
-              height: 30,
-            ),
-            CustomSearch(
-              onSearch: (search) {},
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                OrderItem(
-                  isSeleted: true,
-                  label: 'Orderd',
-                  onTap: () {},
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                OrderItem(
-                  isSeleted: false,
-                  label: 'Delivered',
-                  onTap: () {},
-                ),
-              ],
-            ),
-            const Divider(
-              height: 40,
-            ),
-
-            Expanded(
-              child: DataTable2(
-                columnSpacing: 12,
-                horizontalMargin: 12,
-                columns: [
-                  DataColumn2(
-                    size: ColumnSize.S,
-                    label: Text(
-                      "#ID",
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
+              );
+            }
+          },
+          builder: (context, state) {
+            return SizedBox(
+              width: 1000,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 20,
                   ),
-                  DataColumn2(
-                    size: ColumnSize.S,
-                    label: Text(
-                      "Date",
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
-                  ),
-                  DataColumn2(
-                    size: ColumnSize.S,
-                    label: Text(
-                      "Table",
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
-                  ),
-                  DataColumn2(
-                    size: ColumnSize.S,
-                    label: Text(
-                      "Name",
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
-                  ),
-                  DataColumn2(
-                    size: ColumnSize.S,
-                    label: Text(
-                      "Phone",
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
-                  ),
-                  DataColumn2(
-                    size: ColumnSize.S,
-                    label: Text(
-                      "Total Price",
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
-                  ),
-                  DataColumn2(
-                    size: ColumnSize.S,
-                    label: Text(
-                      "Status",
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
-                  ),
-                  DataColumn2(
-                    size: ColumnSize.L,
-                    label: Text(
-                      "Actions",
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
-                  ),
-                ],
-                rows: List<DataRow>.generate(
-                  20,
-                  (index) => DataRow(
-                    cells: [
-                      DataCell(
-                        Text(
-                          index.toString(),
-                        ),
+                  Wrap(
+                    spacing: 10,
+                    runSpacing: 10,
+                    children: const [
+                      DashboardCard(
+                        label: 'Today\'s Orders',
+                        title: '20',
+                        icon: Icons.sell_outlined,
                       ),
-                      const DataCell(
-                        Text(
-                          "19/04/2023",
-                        ),
+                      DashboardCard(
+                        label: 'Total Food Items',
+                        title: '100',
+                        icon: Icons.food_bank_outlined,
                       ),
-                      const DataCell(
-                        Text(
-                          "C2",
-                        ),
+                      DashboardCard(
+                        label: 'Total Complaints',
+                        title: '30',
+                        icon: Icons.report_outlined,
                       ),
-                      const DataCell(
-                        Text(
-                          "User name",
-                        ),
-                      ),
-                      const DataCell(
-                        Text(
-                          "9876543210",
-                        ),
-                      ),
-                      const DataCell(
-                        Text(
-                          "₹1500",
-                        ),
-                      ),
-                      const DataCell(
-                        Text(
-                          "Pending",
-                        ),
-                      ),
-                      DataCell(
-                        Wrap(
-                          spacing: 10,
-                          children: [
-                            CustomActionButton(
-                              iconData: Icons.arrow_outward_outlined,
-                              mainAxisSize: MainAxisSize.min,
-                              label: 'Items',
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => const ShowItemsDialog(),
-                                );
-                              },
-                              color: Colors.green[700]!,
-                            ),
-                            // CustomActionButton(
-                            //   iconData: Icons.check,
-                            //   mainAxisSize: MainAxisSize.min,
-                            //   label: 'Accepted',
-                            //   onPressed: () {},
-                            //   color: Colors.blue[700]!,
-                            // ),
-                          ],
-                        ),
+                      DashboardCard(
+                        label: 'Total Tables',
+                        title: '40',
+                        icon: Icons.table_bar_outlined,
                       ),
                     ],
                   ),
-                ),
+
+                  const Divider(
+                    height: 30,
+                  ),
+
+                  Row(
+                    children: [
+                      OrderItem(
+                        isSeleted: status == 'pending',
+                        label: 'Orderd',
+                        onTap: () {
+                          status = 'pending';
+                          getOrders();
+                          setState(() {});
+                        },
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      OrderItem(
+                        isSeleted: status == 'complete',
+                        label: 'Delivered',
+                        onTap: () {
+                          status = 'complete';
+                          getOrders();
+                          setState(() {});
+                        },
+                      ),
+                    ],
+                  ),
+                  const Divider(
+                    height: 40,
+                  ),
+
+                  Expanded(
+                    child: state is ManageOrdersSuccessState
+                        ? state.orders.isNotEmpty
+                            ? DataTable2(
+                                columnSpacing: 12,
+                                horizontalMargin: 12,
+                                columns: [
+                                  DataColumn2(
+                                    size: ColumnSize.S,
+                                    fixedWidth: 60,
+                                    label: Text(
+                                      "#ID",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium!
+                                          .copyWith(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ),
+                                  DataColumn2(
+                                    size: ColumnSize.M,
+                                    label: Text(
+                                      "Date",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium!
+                                          .copyWith(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ),
+                                  DataColumn2(
+                                    size: ColumnSize.S,
+                                    fixedWidth: 100,
+                                    label: Text(
+                                      "Table",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium!
+                                          .copyWith(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ),
+                                  DataColumn2(
+                                    size: ColumnSize.M,
+                                    label: Text(
+                                      "Name",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium!
+                                          .copyWith(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ),
+                                  DataColumn2(
+                                    size: ColumnSize.M,
+                                    label: Text(
+                                      "Phone",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium!
+                                          .copyWith(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ),
+                                  DataColumn2(
+                                    size: ColumnSize.S,
+                                    label: Text(
+                                      "Total Price",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium!
+                                          .copyWith(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ),
+                                  DataColumn2(
+                                    size: ColumnSize.L,
+                                    label: Text(
+                                      "Actions",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium!
+                                          .copyWith(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                                rows: List<DataRow>.generate(
+                                  state.orders.length,
+                                  (index) => DataRow(
+                                    cells: [
+                                      DataCell(
+                                        Text(
+                                          state.orders[index]['id'].toString(),
+                                        ),
+                                      ),
+                                      DataCell(
+                                        Text(
+                                          DateFormat('dd/MM/yyyy hh:mm a')
+                                              .format(DateTime.parse(
+                                                  state.orders[index]
+                                                      ['created_at'])),
+                                        ),
+                                      ),
+                                      DataCell(
+                                        Text(
+                                          state.orders[index]['table']['name'],
+                                        ),
+                                      ),
+                                      DataCell(
+                                        Text(
+                                          state.orders[index]['user']['name'],
+                                        ),
+                                      ),
+                                      DataCell(
+                                        Text(
+                                          state.orders[index]['user']['phone'],
+                                        ),
+                                      ),
+                                      DataCell(
+                                        Text(
+                                          "₹${state.orders[index]['total'].toString()}",
+                                        ),
+                                      ),
+                                      DataCell(
+                                        Wrap(
+                                          spacing: 10,
+                                          children: [
+                                            CustomActionButton(
+                                              iconData:
+                                                  Icons.arrow_outward_outlined,
+                                              mainAxisSize: MainAxisSize.min,
+                                              label: 'Items',
+                                              onPressed: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      ShowItemsDialog(
+                                                    orderItemDetails:
+                                                        state.orders[index],
+                                                  ),
+                                                );
+                                              },
+                                              color: Colors.green[700]!,
+                                            ),
+                                            if (state.orders[index]['status'] ==
+                                                'pending')
+                                              CustomActionButton(
+                                                iconData: Icons.done_all,
+                                                mainAxisSize: MainAxisSize.min,
+                                                label: 'Delivered',
+                                                onPressed: () {
+                                                  manageOrdersBloc.add(
+                                                      HandleOrdersEvent(
+                                                          orderId: state
+                                                                  .orders[index]
+                                                              ['id'],
+                                                          status: 'complete'));
+                                                },
+                                                color: Colors.blue[700]!,
+                                              ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : const Center(
+                                child: Text('No Orders Found'),
+                              )
+                        : const Center(
+                            child: CustomProgressIndicator(),
+                          ),
+                  ),
+                  // const SizedBox(
+                  //   height: 40,
+                  // ),
+                ],
               ),
-            ),
-            // const SizedBox(
-            //   height: 40,
-            // ),
-          ],
+            );
+          },
         ),
       ),
     );
